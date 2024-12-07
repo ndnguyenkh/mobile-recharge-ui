@@ -27,7 +27,7 @@ const LOGIN_API = async (email, password) => {
  * @returns 
  */
 const REGISTER_API = async (userName, password, email, phone) => {
-    const url = "";
+    const url = "/api/Login/register";
     const data = {
         userName,
         password,

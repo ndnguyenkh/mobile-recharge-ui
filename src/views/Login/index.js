@@ -48,8 +48,8 @@ export default function Login() {
         <Box sx={{my: 12}}>
           <Typography variant='h4' sx={{fontWeight: 'bold', fontStyle: 'italic', color: 'gray'}}>Login your account.</Typography>
           <Box sx={{my: 10}}>
-            <Typography variant='h6' sx={{fontWeight: 'bold', color: 'gray'}}>Username.</Typography>
-              <TextField variant="standard" placeholder='Enter your username' sx={{width: '100%'}}
+            <Typography variant='h6' sx={{fontWeight: 'bold', color: 'gray'}}>Email.</Typography>
+              <TextField variant="standard" placeholder='Enter your email' sx={{width: '100%'}}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
