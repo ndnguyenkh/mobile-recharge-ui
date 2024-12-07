@@ -1,16 +1,17 @@
 
 import React, { useState }  from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
-// import { LoginApi } from '~/apis/UserApi';
 import Loading from '~/components/Loading';
-// import { useAuth } from '~/config/AuthProvider';
+import { LOGIN_API } from '~/apis/UserAPI';
+import { useAuth } from '~/config/AuthProvider';
+import { ErrorCodes } from '~/utils/Common/Message';
 
 export default function Login() {
 
-  // const { login } = useAuth();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,25 +20,25 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    // if (email && password) {
-    //   try {
-    //     setLoading(true);
-    //     const res = await LoginApi(email, password);
-    //     if (res.access_token) {
-    //       login(res.access_token);
-    //       navigate('/profile');
-    //     } else {
-    //       toast.error('Login failed. Please check your credentials.'); // Thông báo lỗi khi api trả về null
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //     toast.error('An error occurred. Please try again later.'); // Thông báo lỗi khi gọi API
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // } else {
-    //   toast.info('Username and Password is not blank.');
-    // }
+    if (email && password) {
+      try {
+        setLoading(true);
+        const res = await LOGIN_API(email, password);
+        if (res.token) {
+          login(res.token);
+          navigate('/profile');
+        } else {
+          toast.error(ErrorCodes.INVALID_CREDENTIALS); // Thông báo lỗi khi api trả về null
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(ErrorCodes.SERVER_ERROR); // Thông báo lỗi khi gọi API
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      toast.info('Username and Password is not blank.');
+    }
     
   }
 
