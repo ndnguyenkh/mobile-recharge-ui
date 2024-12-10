@@ -2,9 +2,12 @@
 import { useState } from "react";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { toast } from "react-toastify";
 
-import { formatCurrency, formatDate } from "~/utils/Common/Format";
+import { formatCurrency, formatDate, getCurrentDate } from "~/utils/Common/Format";
 import PaymentModel from "../PaymentModel";
+import { CHECK_BILL_API } from "~/apis/PostBillPaymentAPI";
+import { ErrorCodes } from "~/utils/Common/Message";
 
 
 const InfoModel = ({open, handleClose}) => {
@@ -16,17 +19,37 @@ const InfoModel = ({open, handleClose}) => {
 
     const [show, setShow] = useState(false);
 
-    const handleClickCheck = () => {
-        setShow(true);
+    const handleClickCheck = async () => {
+        if (invoiceNumber) {
+            try {
+                const res = await CHECK_BILL_API(invoiceNumber);
+                if (res.invoiceId) {
+                    setInvoiceNumber(res.invoiceId);
+                    setName("bill payment");
+                    setMoney(res.amount);
+                    setDate(getCurrentDate());
+
+                    setShow(true);
+                } else {
+                    toast.info(`Cannot find the invoice with the code '${invoiceNumber}'.`);
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
+            }
+        } else {
+            toast.info("invoice number is not null");
+        }
     }
 
     const [openPayment, setOpenPayment] = useState(false);
 
     const handleOpenPayment = () => {
+        // setInvoiceNumber(invoiceNumber);
         setOpenPayment(true);
 
         handleClose();
-        setInvoiceNumber('');
+        // setInvoiceNumber('');
     };
     const handleClosePayment = () => {
         setOpenPayment(false);
@@ -36,7 +59,14 @@ const InfoModel = ({open, handleClose}) => {
         <>
             <Modal
                 open={open}
-                onClose={handleClose}
+                onClose={() => {
+                    setShow(false);
+                    setName("");
+                    setMoney("");
+                    setDate("");
+                    // setInvoiceNumber("");
+                    handleClose();
+                }}
             >
                 <Box
                     sx={{
@@ -88,7 +118,7 @@ const InfoModel = ({open, handleClose}) => {
                     </Box>
                 </Box>
             </Modal>
-            <PaymentModel open={openPayment} handleClose={handleClosePayment} />
+            <PaymentModel invoiceNumber={invoiceNumber} open={openPayment} handleClose={handleClosePayment} />
         </>
      );
 }

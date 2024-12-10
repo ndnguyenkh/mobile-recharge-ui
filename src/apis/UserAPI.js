@@ -37,7 +37,13 @@ const REGISTER_API = async (userName, password, email, phone) => {
     return await axios.post(url, data);
 }
 
+const USER_REGISTER_STATIC_API = () => {
+    const url = "/api/Login";
+    return axios.get(url);
+}
+
 export {
     LOGIN_API,
-    REGISTER_API
+    REGISTER_API,
+    USER_REGISTER_STATIC_API
 }

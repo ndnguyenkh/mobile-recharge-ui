@@ -5,27 +5,64 @@ import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import { toast } from 'react-toastify';
 
 import { useAuth } from "~/config/AuthProvider";
+import { ErrorCodes } from "~/utils/Common/Message";
+import { MYACCOUT_API, VNPAY_CUS_API, VNPAY_GUEST_API } from "~/apis/RechargeOnlineAPI";
 
 const PaymentModel = ({ money, numberPhone, open, handleClose, clearData }) => {
 
     const { auth } = useAuth();
 
-    const handleClickVNPAY = () => {
-        toast.success(`VNPAY ${money} ${numberPhone}`);
-
-        handleClose();
-        clearData();
+    const handleClickVNPAY = async () => {
+        if (!auth) {
+            try {
+                const res = await VNPAY_GUEST_API("guest", money, numberPhone);
+                if (res.rechargeId) {
+                    toast.success(`VNPAY ${money} ${numberPhone}`);
+    
+                    handleClose();
+                    clearData();
+                    // window.open(res.paymentUrl, "_blank");
+                    window.location.href = res.paymentUrl;
+                }
+            } catch(error) {
+                console.log(error);
+                toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
+            }
+        } else if(auth) {
+            try {
+                const res = await VNPAY_CUS_API(money, numberPhone);
+                if (res.rechargeId) {
+                    toast.success(`VNPAY ${money} ${numberPhone}`);
+    
+                    handleClose();
+                    clearData();
+                    // window.open(res.paymentUrl, "_blank");
+                    // window.location.href = res.paymentUrl;
+                    window.open(res.paymentUrl, '_blank');
+                }
+            } catch(error) {
+                console.log(error);
+                toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
+            }
+        } 
     }
 
-    const handleClickMyAccount = () => {
+    const handleClickMyAccount = async () => {
         if (!auth) {
             toast.info(`You do not have a My Account!`);
         } else {
-            toast.success(`My Account ${money}`);
-        }
-
-        handleClose();
-        clearData();
+            try {
+                const res = await MYACCOUT_API(money, numberPhone);
+                if (res.rechargeId) {
+                    toast.success(`My Account ${money}`);
+                    handleClose();
+                    clearData();
+                }
+            } catch(error) {
+                console.log(error);
+                toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
+            }
+        }   
     }
 
     return (

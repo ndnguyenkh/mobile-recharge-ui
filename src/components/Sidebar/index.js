@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Divider, Drawer, Tooltip, Typography } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+// import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import AddCardIcon from '@mui/icons-material/AddCard';
+// import AddCardIcon from '@mui/icons-material/AddCard';
 import CategoryIcon from '@mui/icons-material/Category';
 import WaterfallChartIcon from '@mui/icons-material/WaterfallChart';
 

@@ -28,11 +28,11 @@ export default function Login() {
           login(res.token);
           navigate('/profile');
         } else {
-          toast.error(ErrorCodes.INVALID_CREDENTIALS); // Thông báo lỗi khi api trả về null
+          toast.error(ErrorCodes.INVALID_CREDENTIALS.message); // Thông báo lỗi khi api trả về null
         }
       } catch (error) {
         console.log(error);
-        toast.error(ErrorCodes.SERVER_ERROR); // Thông báo lỗi khi gọi API
+        toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
       } finally {
         setLoading(false);
       }

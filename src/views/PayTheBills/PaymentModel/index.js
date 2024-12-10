@@ -5,25 +5,54 @@ import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import { toast } from 'react-toastify';
 
 import { useAuth } from "~/config/AuthProvider";
+import { PAYMENT_BILL_MYACCOUT_API, PAYMENT_BILL_VNPAY_API } from "~/apis/PostBillPaymentAPI";
+import { ErrorCodes, Success } from "~/utils/Common/Message";
 
-const PaymentModel = ({open, handleClose}) => {
+const PaymentModel = ({invoiceNumber, open, handleClose}) => {
 
     const { auth } = useAuth();
 
-    const handleClickVNPAY = () => {
-        toast.success(`VNPAY `);
+    const handleClickVNPAY = async () => {
+        if (invoiceNumber) {
+            try {
+                const res = await PAYMENT_BILL_VNPAY_API(invoiceNumber);
+                if (res.paymentUrl) {
+                    toast.success(Success.SUCCESS_PAYMENT.message);
 
-        handleClose();
+                    handleClose();
+                    // window.location.href = res.paymentUrl;
+                    window.open(res.paymentUrl, '_blank');
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
+            }
+        } else {
+            toast.error(ErrorCodes.SERVER_ERROR.message);
+        }
     }
 
-    const handleClickMyAccount = () => {
+    const handleClickMyAccount = async () => {
         if (!auth) {
             toast.info(`You do not have a My Account!`);
         } else {
-            toast.success(`My Account `);
+            console.log(invoiceNumber);
+            if (invoiceNumber) {
+                try {
+                    const res = await PAYMENT_BILL_MYACCOUT_API(invoiceNumber);
+                    if (res.paymentId) {
+                        toast.success(Success.SUCCESS_PAYMENT.message);
+                        
+                        handleClose();
+                    }
+                } catch (error) {
+                    console.log(error);
+                    toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
+                }
+            } else {
+                toast.error(ErrorCodes.SERVER_ERROR.message);
+            }
         }
-
-        handleClose();
     }
 
     return ( 

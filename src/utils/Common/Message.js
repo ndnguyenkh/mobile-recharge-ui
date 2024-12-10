@@ -51,6 +51,10 @@ const Success = {
     SUCCESS_SEND: {
         code: 201,
         message: "has been sent successfully"
+    },
+    SUCCESS_PAYMENT: {
+        code: 202,
+        message: "Payment successful"
     }
 };
 

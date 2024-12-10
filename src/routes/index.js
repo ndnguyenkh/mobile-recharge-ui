@@ -28,25 +28,25 @@ const PublicRoutes = [
     { path: '/recharge-phone', component: RechargePhone },
 
     // temp
-    { path: '/pay-the-bills', component: PayTheBills },
-    { path: '/profile', component: Profile },
+    // { path: '/pay-the-bills', component: PayTheBills },
+    // { path: '/profile', component: Profile },
 
     // temp admin
-    { path: '/admin-recharge-phone', component: AdminRechargePhone, layout: ManageLayout },
-    { path: '/admin-pay-the-bills', component: AdminPayTheBills, layout: ManageLayout },
-    { path: '/admin-user-registered', component: AdminUserRegistered, layout: ManageLayout },
+    // { path: '/admin-recharge-phone', component: AdminRechargePhone, layout: ManageLayout },
+    // { path: '/admin-pay-the-bills', component: AdminPayTheBills, layout: ManageLayout },
+    // { path: '/admin-user-registered', component: AdminUserRegistered, layout: ManageLayout },
 
 ];
 
 const PrivateRoutes = [
     // user
-    // { path: '/pay-the-bills', component: PayTheBills },
-    // { path: '/profile', component: Profile },
+    { path: '/pay-the-bills', component: PayTheBills },
+    { path: '/profile', component: Profile },
 
     // admin
-    // { path: '/admin-recharge-phone', component: AdminRechargePhone, layout: ManageLayout },
-    // { path: '/admin-pay-the-bills', component: AdminPayTheBills, layout: ManageLayout },
-    // { path: '/admin-user-registered', component: AdminUserRegistered, layout: ManageLayout },
+    { path: '/admin-recharge-phone', component: AdminRechargePhone, layout: ManageLayout },
+    { path: '/admin-pay-the-bills', component: AdminPayTheBills, layout: ManageLayout },
+    { path: '/admin-user-registered', component: AdminUserRegistered, layout: ManageLayout },
 ];
 
 export { PublicRoutes, PrivateRoutes };
