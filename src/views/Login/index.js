@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 import Loading from '~/components/Loading';
-import { LOGIN_API } from '~/apis/UserAPI';
+import { GET_ROLE_USER_API, LOGIN_API } from '~/apis/UserAPI';
 import { useAuth } from '~/config/AuthProvider';
 import { ErrorCodes } from '~/utils/Common/Message';
 
@@ -19,6 +19,20 @@ export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const fetchRoleuser = async () => {
+    try {
+      const res = await GET_ROLE_USER_API();
+      if (res.role == "Admin") {
+        navigate('/admin-recharge-phone');
+      }
+      if (res.role == "Customer") {
+        navigate('/profile');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleLogin = async () => {
     if (email && password) {
       try {
@@ -26,7 +40,7 @@ export default function Login() {
         const res = await LOGIN_API(email, password);
         if (res.token) {
           login(res.token);
-          navigate('/profile');
+          fetchRoleuser();
         } else {
           toast.error(ErrorCodes.INVALID_CREDENTIALS.message); // Thông báo lỗi khi api trả về null
         }
