@@ -29,7 +29,7 @@ const PublicRoutes = [
 
     // temp
     // { path: '/pay-the-bills', component: PayTheBills },
-    // { path: '/profile', component: Profile },
+     { path: '/profile', component: Profile },
 
     // temp admin
     // { path: '/admin-recharge-phone', component: AdminRechargePhone, layout: ManageLayout },
@@ -41,7 +41,7 @@ const PublicRoutes = [
 const PrivateRoutes = [
     // user
     { path: '/pay-the-bills', component: PayTheBills },
-    { path: '/profile', component: Profile },
+    // { path: '/profile', component: Profile },
 
     // admin
     { path: '/admin-recharge-phone', component: AdminRechargePhone, layout: ManageLayout },
