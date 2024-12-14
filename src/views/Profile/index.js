@@ -20,6 +20,7 @@ import {
   PROFILE_API,
   GET_CALLER_TUNES_API,
   UPDATE_PROFILE_API,
+  UPDATE_CALLER_TUNE_API,
 } from "~/apis/ProfileAPI";
 import { toast } from "react-toastify";
 
@@ -119,6 +120,22 @@ const Profile = () => {
     }
   };
 
+  // Choose caller tune
+  const handleChooseCallerTune = async (tuneId) => {
+    try {
+      const res = await UPDATE_CALLER_TUNE_API(tuneId);
+      if (res?.success) {
+        toast.success("Caller tune selected successfully!");
+        fetchCallerTunes();
+      } else {
+        toast.error("Failed to select caller tune.");
+      }
+    } catch (error) {
+      console.error("Error selecting caller tune:", error);
+      toast.error("An error occurred while selecting the caller tune.");
+    }
+  };
+
   useEffect(() => {
     fetchProfile();
     // fetchUserName();
@@ -169,6 +186,14 @@ const Profile = () => {
                 color={isPlaying && audio?.src === tune.fileUrl ? "error" : "primary"}
               >
                 {isPlaying && audio?.src === tune.fileUrl ? "Stop" : "Play"}
+              </Button>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => handleChooseCallerTune(tune.id)}
+                sx={{ ml: 1 }}
+              >
+                Choose
               </Button>
             </ListItem>
             <Divider />
