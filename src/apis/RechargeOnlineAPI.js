@@ -53,8 +53,23 @@ const MYACCOUT_API = (amount, phone) => {
     return axios.post(url, data);
 }
 
+/**
+ * statistic
+ * 
+ * @returns 
+ */
 const RECHARGE_PHONE_STATIC_API = () => {
     const url = "/api/OnlineRecharge";
+    return axios.get(url);
+}
+
+/**
+ * revenue
+ * 
+ * @returns 
+ */
+const REVENUE_RECHARGE_PHONE_API = () => {
+    const url = "/api/OnlineRecharge/GetFullOnlineRechargeRevenueReport";
     return axios.get(url);
 }
 
@@ -62,5 +77,6 @@ export {
     VNPAY_GUEST_API,
     VNPAY_CUS_API,
     MYACCOUT_API,
-    RECHARGE_PHONE_STATIC_API
+    RECHARGE_PHONE_STATIC_API,
+    REVENUE_RECHARGE_PHONE_API
 }

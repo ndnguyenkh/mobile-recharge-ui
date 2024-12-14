@@ -52,9 +52,18 @@ const POST_BILL_PAYMENT_STATIC_API = () => {
     return axios.get(url);
 }
 
+/**
+ * Revenue
+ */
+const REVENUE_POST_BILL_PAYMENT_API = () => {
+    const url = "/api/PostBillPayment/GetFullPaymentRevenueReport";
+    return axios.get(url);
+}
+
 export {
     CHECK_BILL_API,
     PAYMENT_BILL_MYACCOUT_API,
     PAYMENT_BILL_VNPAY_API,
-    POST_BILL_PAYMENT_STATIC_API
+    POST_BILL_PAYMENT_STATIC_API,
+    REVENUE_POST_BILL_PAYMENT_API
 }

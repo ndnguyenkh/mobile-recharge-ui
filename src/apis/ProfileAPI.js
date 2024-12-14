@@ -3,6 +3,10 @@ import axios from '~/config/Axios';
 /**
  * Get Profile Details
  */
+const PROFILE_API = async () => {
+  const url = "/api/Account/get-user-and-account";
+  return axios.get(url);
+};
 
 /**
  * Get User Name and Details
@@ -17,7 +21,7 @@ const GET_NAME_API = () => {
  */
 const GET_CALLER_TUNES_API = () => {
     const url = "/api/Ringtone"; // Fetch available caller tunes
-    return axios.get(url).then(res => res.data);
+    return axios.get(url);
 };
 
 /**
@@ -28,11 +32,12 @@ const GET_ACCOUNT_API = (userId) => {
     return axios.get(url).then(res => res.data);
 };
 
-const PROFILE_API = async () => {
-    const url = "/api/Users";
-    return axios.get(url);
-  };
-
+/**
+ * sửa lại cái này
+ * 
+ * @param {*} data 
+ * @returns 
+ */
   export const UPDATE_PROFILE_API = async (data) => {
     try {
       const response = await axios.put("/api/profile/update", data);

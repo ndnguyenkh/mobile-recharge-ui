@@ -2,11 +2,11 @@
 import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-// import { axisClasses } from '@mui/x-charts/ChartsAxis';
-// import { BarChart } from "@mui/x-charts";
+import { axisClasses } from '@mui/x-charts/ChartsAxis';
+import { BarChart } from "@mui/x-charts";
 
 import { ErrorCodes } from "~/utils/Common/Message";
-import { RECHARGE_PHONE_STATIC_API } from "~/apis/RechargeOnlineAPI";
+import { RECHARGE_PHONE_STATIC_API, REVENUE_RECHARGE_PHONE_API } from "~/apis/RechargeOnlineAPI";
 import { formatCurrency, formatDate, searchByDate } from "~/utils/Common/Format";
 import { validateDate } from "~/utils/Common/ValidData";
 
@@ -14,14 +14,19 @@ const AdminRechargePhone = () => {
 
     const [day, setDay] = useState('');
     const [rows, setRows] = useState([]);
+    const [revenue, setRevenue] = useState([]);
 
     const handleSearchData = () => {
-        if (!validateDate(day)) {
+        if (!validateDate(formatDate(day))) {
             toast.info(ErrorCodes.INVALID_DATA_FORMAT.message);
         } else {
-            setRows(searchByDate(rows, day));
+            setRows(searchByDate(rows, formatDate(day)));
         }
     }  
+
+    const handleReload = () => {
+        window.location.reload(); // Reload lại trang
+    };
 
     const fetchRechargeOnline = async () => {
         try {
@@ -35,8 +40,21 @@ const AdminRechargePhone = () => {
         }
     }
 
+    const fetchRechargeOnlineRevenue = async () => {
+        try {
+            const res = await REVENUE_RECHARGE_PHONE_API();
+            if (res) {
+                setRevenue(res);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
+        }
+    }
+
     useEffect(() => {
         fetchRechargeOnline();
+        fetchRechargeOnlineRevenue();
     }, []);
 
     return (
@@ -45,28 +63,27 @@ const AdminRechargePhone = () => {
                 Manage Recharge Phone
             </Typography>
 
-            {/* <Box sx={{ my: 10, display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{ my: 10, display: 'flex', justifyContent: 'center' }}>
                 <BarChart
-                    dataset={dataset}
-                    xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
+                    dataset={revenue}
+                    xAxis={[{ scaleType: 'band', dataKey: 'date' }]}
                     series={[
-                        { dataKey: 'london', label: 'London', valueFormatter },
-                        { dataKey: 'paris', label: 'Paris', valueFormatter },
-                        { dataKey: 'newYork', label: 'New York', valueFormatter },
-                        { dataKey: 'seoul', label: 'Seoul', valueFormatter },
+                        { dataKey: 'totalRevenue', label: 'Total Revenue', valueFormatter },
                     ]}
                     {...chartSetting}
                 />
-            </Box> */}
+            </Box>
 
             <Box sx={{mt: 5}}>
                 <Typography variant='h6' sx={{fontWeight: 'bold', color: 'gray'}}>Search</Typography>
                 <Box>
                     <TextField variant="standard" placeholder='Enter a date' sx={{width: '20%'}}
-                    value={day}
-                    onChange={(e) => setDay(e.target.value)}
+                        value={day}
+                        onChange={(e) => setDay(e.target.value)}
+                        type="date"
                     />
-                    <Button variant="outlined" sx={{mx: 5}} onClick={handleSearchData}>Search</Button>
+                    <Button variant="outlined" sx={{ml: 5, mr: 2}} onClick={handleSearchData}>Search</Button>
+                    <Button variant="outlined" onClick={handleReload}>Reload</Button>
                 </Box>
             </Box>
 
@@ -109,110 +126,23 @@ const AdminRechargePhone = () => {
     );
 }
 
-// const chartSetting = {
-//     yAxis: [
-//         {
-//             label: 'rainfall (mm)',
-//         },
-//     ],
-//     width: 1200,
-//     height: 400,
-//     sx: {
-//         [`.${axisClasses.left} .${axisClasses.label}`]: {
-//             transform: 'translate(-20px, 0)',
-//         },
-//     },
-// };
+const chartSetting = {
+    yAxis: [
+        {
+            label: 'Total revenue per day (vn₫)',
+        },
+    ],
+    width: 1200,
+    height: 400,
+    sx: {
+        [`.${axisClasses.left} .${axisClasses.label}`]: {
+            transform: 'translate(-20px, 0)',
+        },
+    },
+};
 
-// const dataset = [
-//     {
-//         london: 59,
-//         paris: 57,
-//         newYork: 86,
-//         seoul: 21,
-//         month: 'Jan',
-//     },
-//     {
-//         london: 50,
-//         paris: 52,
-//         newYork: 78,
-//         seoul: 28,
-//         month: 'Feb',
-//     },
-//     {
-//         london: 47,
-//         paris: 53,
-//         newYork: 106,
-//         seoul: 41,
-//         month: 'Mar',
-//     },
-//     {
-//         london: 54,
-//         paris: 56,
-//         newYork: 92,
-//         seoul: 73,
-//         month: 'Apr',
-//     },
-//     {
-//         london: 57,
-//         paris: 69,
-//         newYork: 92,
-//         seoul: 99,
-//         month: 'May',
-//     },
-//     {
-//         london: 60,
-//         paris: 63,
-//         newYork: 103,
-//         seoul: 144,
-//         month: 'June',
-//     },
-//     {
-//         london: 59,
-//         paris: 60,
-//         newYork: 105,
-//         seoul: 319,
-//         month: 'July',
-//     },
-//     {
-//         london: 65,
-//         paris: 60,
-//         newYork: 106,
-//         seoul: 249,
-//         month: 'Aug',
-//     },
-//     {
-//         london: 51,
-//         paris: 51,
-//         newYork: 95,
-//         seoul: 131,
-//         month: 'Sept',
-//     },
-//     {
-//         london: 60,
-//         paris: 65,
-//         newYork: 97,
-//         seoul: 55,
-//         month: 'Oct',
-//     },
-//     {
-//         london: 67,
-//         paris: 64,
-//         newYork: 76,
-//         seoul: 48,
-//         month: 'Nov',
-//     },
-//     {
-//         london: 61,
-//         paris: 70,
-//         newYork: 103,
-//         seoul: 25,
-//         month: 'Dec',
-//     },
-// ];
-
-// function valueFormatter(value) {
-//     return `${value}mm`;
-// }
+function valueFormatter(value) {
+    return `${formatCurrency(value)} `;
+}
 
 export default AdminRechargePhone;

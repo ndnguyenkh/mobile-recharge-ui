@@ -15,10 +15,9 @@ import {
 } from "@mui/material";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useAuth } from "~/config/AuthProvider";
-import { formatCurrency } from "~/utils/Common/Format";
+import { formatCurrency, formatDate } from "~/utils/Common/Format";
 import {
   PROFILE_API,
-  GET_NAME_API,
   GET_CALLER_TUNES_API,
   UPDATE_PROFILE_API,
 } from "~/apis/ProfileAPI";
@@ -29,13 +28,13 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({});
-  const [username, setUsername] = useState({});
+  const [accountBalance, setAccountBalance] = useState('');
   const [callerTunes, setCallerTunes] = useState([]);
   const [audio, setAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [editForm, setEditForm] = useState({ name: "", username: "", phone: "" });
+  const [editForm, setEditForm] = useState({ name: "", email: "" });
 
   // Logout handler
   const handleLogout = () => {
@@ -48,11 +47,11 @@ const Profile = () => {
     try {
       const res = await PROFILE_API();
       if (res) {
-        setProfile(res.data || {});
+        setProfile(res.user || {});
+        setAccountBalance(res.account.accountBalance);
         setEditForm({
-          name: res.data?.userName || "",
-          username: res.data?.userId || "",
-          phone: res.data?.phone || "",
+          name: res.user.userName || "",
+          email: res.user.email || "",
         });
       }
     } catch (error) {
@@ -60,22 +59,22 @@ const Profile = () => {
     }
   };
 
-  const fetchUserName = async () => {
-    try {
-      const res = await GET_NAME_API();
-      if (res) {
-        setUsername(res);
-      }
-    } catch (error) {
-      console.error("Error fetching username:", error);
-    }
-  };
+  // const fetchUserName = async () => {
+  //   try {
+  //     const res = await GET_NAME_API();
+  //     if (res) {
+  //       setUsername(res);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching username:", error);
+  //   }
+  // };
 
   const fetchCallerTunes = async () => {
     try {
       const res = await GET_CALLER_TUNES_API();
       if (res) {
-        setCallerTunes(res || []);
+        setCallerTunes(res);
       }
     } catch (error) {
       console.error("Error fetching caller tunes:", error);
@@ -122,7 +121,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchProfile();
-    fetchUserName();
+    // fetchUserName();
     fetchCallerTunes();
   }, []);
 
@@ -133,22 +132,17 @@ const Profile = () => {
       </Typography>
       <Box sx={{ my: 10 }}>
         <Typography variant="h5" sx={{ color: "gray", fontWeight: "bold" }}>
-          UserName: {username.usUserName}
+          Name: <a>{profile.userName}</a>
+        </Typography>
+
+        <Typography variant="h5" sx={{ color: "gray", fontWeight: "bold" }}>
+          Email: {profile.email}
         </Typography>
         <Typography variant="h5" sx={{ color: "gray", fontWeight: "bold" }}>
-          Name: {profile.userName}
+          Date created: {formatDate(profile.createdAt)}
         </Typography>
         <Typography variant="h5" sx={{ color: "gray", fontWeight: "bold" }}>
-          UserId: {profile.userId}
-        </Typography>
-        <Typography variant="h5" sx={{ color: "gray", fontWeight: "bold" }}>
-          Email: {username.usEmail}
-        </Typography>
-        <Typography variant="h5" sx={{ color: "gray", fontWeight: "bold" }}>
-          Phone: {username.usPhoneNumber}
-        </Typography>
-        <Typography variant="h5" sx={{ color: "gray", fontWeight: "bold" }}>
-          Account Balance: {formatCurrency(profile.accountBalance)}
+          Account Balance: {formatCurrency(accountBalance)}
         </Typography>
 
         <Button
@@ -168,13 +162,13 @@ const Profile = () => {
         {callerTunes.map((tune, index) => (
           <div key={index}>
             <ListItem>
-              <Typography sx={{ flex: 1 }}>{tune.ringtone_name}</Typography>
+              <Typography sx={{ flex: 1 }}>{tune.ringtoneName}</Typography>
               <Button
                 variant="outlined"
-                onClick={() => handlePlayStopTune(tune.url)}
-                color={isPlaying && audio?.src === tune.url ? "error" : "primary"}
+                onClick={() => handlePlayStopTune(tune.fileUrl)}
+                color={isPlaying && audio?.src === tune.fileUrl ? "error" : "primary"}
               >
-                {isPlaying && audio?.src === tune.url ? "Stop" : "Play"}
+                {isPlaying && audio?.src === tune.fileUrl ? "Stop" : "Play"}
               </Button>
             </ListItem>
             <Divider />
