@@ -46,11 +46,27 @@ const GET_ACCOUNT_API = (userId) => {
       console.error("Error updating profile:", error);
       throw error;
     }
-  };
-  
+};
+
+/**
+ * Update Caller Tune
+ * @param {*} tuneId 
+ * @returns 
+ */
+export const UPDATE_CALLER_TUNE_API = async (tuneId) => {
+  try {
+    const response = await axios.put(`/api/Ringtone/select/${tuneId}`);
+    return response.data; // Assume it returns { success: true }
+  } catch (error) {
+    console.error("Error selecting caller tune:", error);
+    throw error;
+  }
+};
+
+
 export {
     PROFILE_API,
     GET_NAME_API,
     GET_CALLER_TUNES_API,
-    GET_ACCOUNT_API
+    GET_ACCOUNT_API,
 };
