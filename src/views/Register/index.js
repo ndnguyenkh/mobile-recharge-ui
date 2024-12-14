@@ -22,7 +22,7 @@ export default function Register() {
         setLoading(true);
         try {
           const res = await REGISTER_API(your_name, your_password, your_email, your_phone);
-          if (res.role == "Customer") {
+          if (res.role === "Customer") {
             toast.success('Register successful.');
             navigate("/login");
           } else {
