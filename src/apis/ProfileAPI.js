@@ -3,10 +3,6 @@ import axios from '~/config/Axios';
 /**
  * Get Profile Details
  */
-const PROFILE_API = () => {
-    const url = "/api/Account"; // Fetch user profile details
-    return axios.get(url).then(res => res.data);
-};
 
 /**
  * Get User Name and Details
@@ -32,6 +28,21 @@ const GET_ACCOUNT_API = (userId) => {
     return axios.get(url).then(res => res.data);
 };
 
+const PROFILE_API = async () => {
+    const url = "/api/Users";
+    return axios.get(url);
+  };
+
+  export const UPDATE_PROFILE_API = async (data) => {
+    try {
+      const response = await axios.put("/api/profile/update", data);
+      return response.data; // Assume success property in response
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      throw error;
+    }
+  };
+  
 export {
     PROFILE_API,
     GET_NAME_API,
