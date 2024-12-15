@@ -63,6 +63,19 @@ export const UPDATE_CALLER_TUNE_API = async (tuneId) => {
   }
 };
 
+export const UPLOAD_CALLER_TUNE_API = async (formData) => {
+  try {
+    const response = await axios.post("/api/caller-tunes/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data; // Assuming the response contains success and data fields
+  } catch (error) {
+    console.error("Error uploading caller tune:", error);
+    throw error; // Optionally handle error globally or pass to calling function
+  }
+};
 
 export {
     PROFILE_API,

@@ -21,6 +21,7 @@ import {
   GET_CALLER_TUNES_API,
   UPDATE_PROFILE_API,
   UPDATE_CALLER_TUNE_API,
+  UPLOAD_CALLER_TUNE_API,
 } from "~/apis/ProfileAPI";
 import { toast } from "react-toastify";
 
@@ -89,35 +90,62 @@ const Profile = () => {
   };
 
   // Submit updated profile
-  const handleFormSubmit = async () => {
-    try {
-      const res = await UPDATE_PROFILE_API(editForm);
-      if (res?.success) {
-        toast.success("Profile updated successfully!");
-        setIsEditDialogOpen(false);
-        fetchProfile();
-      } else {
-        toast.error("Failed to update profile.");
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      toast.error("An error occurred while updating the profile.");
+const handleFormSubmit = async () => {
+  if (!editForm.name || !editForm.email) {
+    toast.error("Name and Email are required.");
+    return;
+  }
+
+  // Validation: Check for a valid email format
+  if (!/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/i.test(editForm.email)) {
+    toast.error("Please enter a valid email address.");
+    return;
+  }
+
+  try {
+    // Construct the updated profile object
+    const updatedProfile = {
+      userName: editForm.name,
+      email: editForm.email,
+      phone: editForm.phone, 
+    };
+
+    // Call the API and await the response
+    const res = await UPDATE_PROFILE_API(updatedProfile);
+
+    // Handle the response
+    if (res?.success) {
+      toast.success("Profile updated successfully!");
+      setIsEditDialogOpen(false); // Close the dialog
+      fetchProfile(); // Refresh profile details
+    } else {
+      toast.error(res?.message || "Failed to update profile."); // Show the error message from API
     }
-  };
+  } catch (error) {
+    // Log error and display a generic error message
+    console.error("Error updating profile:", error);
+    toast.error("An error occurred while updating the profile.");
+  }
+};
+
+  
 
   // Play or stop caller tune
-  const handlePlayStopTune = (tuneUrl) => {
-    if (isPlaying && audio) {
+  const [playingTuneId, setPlayingTuneId] = useState(null);
+
+  const handlePlayStopTune = (tuneId, tuneUrl) => {
+    if (audio) {
       audio.pause();
       setAudio(null);
-      setIsPlaying(false);
-    } else {
-      const newAudio = new Audio(tuneUrl);
-      newAudio.play();
-      newAudio.addEventListener("ended", () => setIsPlaying(false)); // Stop when the audio ends
-      setAudio(newAudio);
-      setIsPlaying(true);
+      setPlayingTuneId(null);
+      if (playingTuneId === tuneId) return;
     }
+  
+    const newAudio = new Audio(tuneUrl);
+    newAudio.play();
+    newAudio.addEventListener("ended", () => setPlayingTuneId(null));
+    setAudio(newAudio);
+    setPlayingTuneId(tuneId);
   };
 
   // Choose caller tune
@@ -135,6 +163,40 @@ const Profile = () => {
       toast.error("An error occurred while selecting the caller tune.");
     }
   };
+
+// Inside the Profile component:
+const [file, setFile] = useState(null); // State to manage the selected file
+
+// Handle file selection
+const handleFileChange = (e) => {
+  const selectedFile = e.target.files[0];
+  setFile(selectedFile);
+};
+
+// Upload the selected caller tune
+const handleUploadTune = async () => {
+  if (!file) {
+    toast.error("Please select a file to upload.");
+    return;
+  }
+
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await UPLOAD_CALLER_TUNE_API(formData);
+    if (res?.success) {
+      toast.success("Caller tune uploaded successfully!");
+      setFile(null); // Clear the file input after upload
+      fetchCallerTunes(); // Refresh the caller tunes list
+    } else {
+      toast.error(res?.message || "Failed to upload caller tune.");
+    }
+  } catch (error) {
+    console.error("Error uploading caller tune:", error);
+    toast.error("An error occurred while uploading the caller tune.");
+  }
+};
 
   useEffect(() => {
     fetchProfile();
@@ -210,39 +272,68 @@ const Profile = () => {
         Logout
       </Button>
 
+      <Typography variant="h5" sx={{ color: "gray", fontWeight: "bold", mt: 4 }}>
+  Upload Caller Tune:
+</Typography>
+<Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+  <Button
+    variant="contained"
+    component="label"
+    sx={{ mr: 2 }}
+  >
+    Select File
+    <input
+      type="file"
+      hidden
+      accept="audio/*"
+      onChange={handleFileChange}
+    />
+  </Button>
+  <Typography variant="body1">
+    {file ? file.name : "No file selected"}
+  </Typography>
+</Box>
+<Button
+  variant="contained"
+  color="primary"
+  onClick={handleUploadTune}
+  sx={{ mt: 2 }}
+>
+  Upload
+</Button>
       {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onClose={() => setIsEditDialogOpen(false)}>
         <DialogTitle>Edit Personal Details</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            name="name"
-            label="Name"
-            type="text"
-            fullWidth
-            value={editForm.name}
-            onChange={handleFormChange}
-          />
-          <TextField
-            margin="dense"
-            name="username"
-            label="Username"
-            type="text"
-            fullWidth
-            value={editForm.username}
-            onChange={handleFormChange}
-          />
-          <TextField
-            margin="dense"
-            name="phone"
-            label="Phone Number"
-            type="text"
-            fullWidth
-            value={editForm.phone}
-            onChange={handleFormChange}
-          />
-        </DialogContent>
+  <TextField
+    autoFocus
+    margin="dense"
+    name="name"
+    label="Name"
+    type="text"
+    fullWidth
+    value={editForm.name}
+    onChange={handleFormChange}
+  />
+  <TextField
+    margin="dense"
+    name="email"
+    label="Email"
+    type="email"
+    fullWidth
+    value={editForm.email}
+    onChange={handleFormChange}
+  />
+  <TextField
+    margin="dense"
+    name="phone"
+    label="Phone Number"
+    type="text"
+    fullWidth
+    value={editForm.phone}
+    onChange={handleFormChange}
+  />
+</DialogContent>
         <DialogActions>
           <Button onClick={() => setIsEditDialogOpen(false)} color="secondary">
             Cancel
