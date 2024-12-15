@@ -33,24 +33,41 @@ const GET_ACCOUNT_API = (userId) => {
 };
 
 /**
- * sửa lại cái này
+ * create account
  * 
- * @param {*} data 
  * @returns 
  */
-  export const UPDATE_PROFILE_API = async (data) => {
-    try {
-      const response = await axios.put("/api/profile/update", data);
-      return response.data; // Assume success property in response
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      throw error;
-    }
-  };
+const CREATE_ACCOUNT_API = () => {
+  const url = "/api/Account";
+  const data = {
+    accountBalance: 1000000
+  }
+  return axios.post(url, data);
+}
+
+/**
+ * update account user
+ * 
+ * @param {*} userName 
+ * @param {*} email 
+ * @param {*} phone 
+ * @returns 
+ */
+const UPDATE_ACCOUNT_USER_API = (userName, email, phone) => {
+  const url = "/api/Login/UpdateProfile";
+  const data = {
+    userName,
+    email,
+    phone
+  }
+  return axios.post(url, data);
+}
   
 export {
     PROFILE_API,
     GET_NAME_API,
     GET_CALLER_TUNES_API,
-    GET_ACCOUNT_API
+    GET_ACCOUNT_API,
+    CREATE_ACCOUNT_API,
+    UPDATE_ACCOUNT_USER_API
 };
