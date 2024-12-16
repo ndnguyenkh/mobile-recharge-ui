@@ -29,7 +29,7 @@ const SessionService = () => {
                     <Grid item md={4}>
                         <Box sx={{height: '200px', border: '1px solid pink', borderRadius: '10px'}}>
                             <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <ExtensionIcon sx={{width: '150px', height: '150px', color: 'pink', cursor: 'pointer', ":hover": {color: 'gray'}}} />
+                            <Link href="/spinning"><ExtensionIcon sx={{width: '150px', height: '150px', color: 'pink', cursor: 'pointer', ":hover": {color: 'gray'}}} /></Link>
                             </Box>
                             <Typography variant="h5" sx={{textAlign: 'center', fontWeight: 'bold', color: 'gray'}}>Mini Games</Typography>
                         </Box>
