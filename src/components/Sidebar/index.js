@@ -8,6 +8,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 // import AddCardIcon from '@mui/icons-material/AddCard';
 import CategoryIcon from '@mui/icons-material/Category';
 import WaterfallChartIcon from '@mui/icons-material/WaterfallChart';
+import InsertCommentIcon from '@mui/icons-material/InsertComment';
 
 import { useAuth } from '~/config/AuthProvider';
 
@@ -106,6 +107,23 @@ const Sidebar = ({ open, toggleDrawer }) => {
                             >
                                 <CategoryIcon sx={{ color: 'black' }} />
                                 <Typography sx={{ ml: 2, color: 'grey' }}>User Registered</Typography>
+                            </Button>
+                            <Button 
+                                sx={{ 
+                                    width: '100%', 
+                                    display: 'flex', 
+                                    justifyContent: 'flex-start', // Căn trái
+                                    alignItems: 'center', 
+                                    ":hover": { backgroundColor: 'rgba(22, 24, 35, 0.09)' }, 
+                                    borderRadius: '10px' 
+                                }}
+                                onClick={() => {
+                                      navigate('/admin-manage-feedback');
+                                      toggleDrawer();
+                                }}
+                            >
+                                <InsertCommentIcon sx={{ color: 'black' }} />
+                                <Typography sx={{ ml: 2, color: 'grey' }}>Manage Feedback</Typography>
                             </Button>
                             {/* <Divider sx={{ my: 2 }} />
                             <Button 
