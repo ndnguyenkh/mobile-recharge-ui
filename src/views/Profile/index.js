@@ -48,7 +48,7 @@ const Profile = () => {
   const [selectedTuneId, setSelectedTuneId] = useState(null);
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [name, setName] = useState('');
+  const [name, setname] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -66,7 +66,7 @@ const Profile = () => {
         setProfile(res.user || {});
         setAccountBalance(res.account.accountBalance);
         setIsProfile(true);
-        setName(res.user.userName);
+        setname(res.user.username);
         setEmail(res.user.email);
       }
     } catch (error) {
@@ -253,7 +253,7 @@ const Profile = () => {
                 type="text"
                 fullWidth
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setname(e.target.value)}
                 sx={{ my: 1 }}
               />
               <TextField
