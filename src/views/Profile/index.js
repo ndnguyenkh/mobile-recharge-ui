@@ -292,7 +292,7 @@ const Profile = () => {
           onClick={handleCreateAccount}
           startIcon={<AddCardIcon />}
         >
-          Create new account?
+          Actice Payment Account
         </Button>
       )}
 
