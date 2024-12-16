@@ -57,9 +57,20 @@ const GET_ROLE_USER_API = () => {
     return axios.get(url);
 }
 
+/**
+ * user register revenue
+ * 
+ * @returns 
+ */
+const USER_REGISTER_REVENUE_API = () => {
+    const url = "/api/Login/GetUserRegistrationReport";
+    return axios.get(url);
+}
+
 export {
     LOGIN_API,
     REGISTER_API,
     USER_REGISTER_STATIC_API,
-    GET_ROLE_USER_API
+    GET_ROLE_USER_API,
+    USER_REGISTER_REVENUE_API
 }
