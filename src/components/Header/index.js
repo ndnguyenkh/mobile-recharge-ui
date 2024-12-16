@@ -50,8 +50,7 @@ const Header = () => {
                 {/* actions */}
                 <Box>
                     <Link href="/" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Home</Link>
-                    <Link underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Services</Link>
-                    <Link underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Feedbacks</Link>
+                    <Link href="/provide-feedback" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Feedbacks</Link>
                     <Link href="/about-us" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>About Us</Link>
                     <Link href="/contact-us" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Contact Us</Link>
                 </Box>

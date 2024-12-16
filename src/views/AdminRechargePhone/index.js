@@ -47,6 +47,7 @@ const AdminRechargePhone = () => {
                 setRevenue(res);
             }
         } catch (error) {
+            setRevenue([]);
             console.log(error);
             toast.error(ErrorCodes.SERVER_ERROR.message); // Thông báo lỗi khi gọi API
         }

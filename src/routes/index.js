@@ -13,6 +13,9 @@ import Home from "~/views/Home";
 import PayTheBills from "~/views/PayTheBills";
 import Profile from "~/views/Profile";
 import RechargePhone from "~/views/RechargePhone";
+import ProvideFeedback from "~/views/Feedback/providefeedback";
+import Spinning from "~/views/SpinningGame/spinning";
+import AdminManageFeedback from "~/views/AdminManageFeedback";
 
 /** Page Public*/
 const { default: Login } = require("~/views/Login");
@@ -26,6 +29,7 @@ const PublicRoutes = [
     { path: '/contact-us', component: Contact },
     { path: '/about-us', component: About },
     { path: '/recharge-phone', component: RechargePhone },
+    { path: '/provide-feedback', component: ProvideFeedback },
 
     // temp
     // { path: '/pay-the-bills', component: PayTheBills },
@@ -41,12 +45,14 @@ const PublicRoutes = [
 const PrivateRoutes = [
     // user
     { path: '/pay-the-bills', component: PayTheBills },
+    { path: '/spinning', component: Spinning },
     // { path: '/profile', component: Profile },
 
     // admin
     { path: '/admin-recharge-phone', component: AdminRechargePhone, layout: ManageLayout },
     { path: '/admin-pay-the-bills', component: AdminPayTheBills, layout: ManageLayout },
     { path: '/admin-user-registered', component: AdminUserRegistered, layout: ManageLayout },
+    { path: '/admin-manage-feedback', component: AdminManageFeedback, layout: ManageLayout },
 ];
 
 export { PublicRoutes, PrivateRoutes };
