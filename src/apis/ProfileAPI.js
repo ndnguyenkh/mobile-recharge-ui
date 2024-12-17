@@ -12,7 +12,7 @@ const PROFILE_API = async () => {
  * Get User Name and Details
  */
 const GET_NAME_API = () => {
-    const url = "/api/Login/get-user-details"; // Fetch user name and basic details
+    const url = "/api/Login/get-user-details"; 
     return axios.get(url).then(res => res.data);
 };
 
@@ -20,7 +20,7 @@ const GET_NAME_API = () => {
  * Get Caller Tunes
  */
 const GET_CALLER_TUNES_API = () => {
-    const url = "/api/Ringtone"; // Fetch available caller tunes
+    const url = "/api/Ringtone"; 
     return axios.get(url);
 };
 
@@ -28,7 +28,7 @@ const GET_CALLER_TUNES_API = () => {
  * Get Account Details
  */
 const GET_ACCOUNT_API = (userId) => {
-    const url = `/api/Account/${userId}`; // Fetch account-specific details
+    const url = `/api/Account/${userId}`; 
     return axios.get(url).then(res => res.data);
 };
 
@@ -65,8 +65,8 @@ const UPDATE_ACCOUNT_USER_API = (userName, email, phone) => {
   
 /**
  * Update Account Ringtone API
- * @param {number} ringtoneId - The ID of the selected ringtone.
- * @returns {Promise} A promise that resolves when the caller tune is updated successfully.
+ * @param {number} ringtoneId 
+ * @returns {Promise} 
  */
 const UPDATE_ACCOUNT_CALLER_TUNE_API = (ringtoneId) => {
   const url = "/api/AccountRingtone";
