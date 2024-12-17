@@ -21,6 +21,7 @@ const PaymentModel = ({ money, numberPhone, open, handleClose, clearData }) => {
     
                     handleClose();
                     clearData();
+                    
                     window.open(res.paymentUrl, "_blank");
                     // window.location.href = res.paymentUrl;
                 }
