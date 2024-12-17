@@ -11,7 +11,7 @@ import {
     DialogContent,
     DialogTitle,
 } from '@mui/material';
-
+//Fixed Format already
 import { FETCH_ALL_FEEDBACK_API, FETCH_ALL_REFEEDBACK_API, SEND_REPLY_API } from '~/apis/adminFeedbackApi';
 
 const AdminManageFeedback = () => {
@@ -50,9 +50,14 @@ const AdminManageFeedback = () => {
                 alert('Failed to load feedback. Please try again later.');
             }
         };
-
+        console.log('Refeedback Data:', reFeedbackData);
         loadFeedbackData();
-    }, []);
+    }, [reFeedbackData]);
+
+    const formatDate = (date) => {
+        if (!date) return '';
+        return new Date(date).toLocaleDateString();
+      };
 
     const handleReplyClick = (feedback) => {
         if (feedback.status === 'Replied') {
@@ -146,7 +151,7 @@ const AdminManageFeedback = () => {
                                     <strong>Content:</strong> {feedback.feedbackText}
                                 </Typography>
                                 <Typography variant="body2" sx={{ marginBottom: '4px' }}>
-                                    <strong>Date:</strong> {feedback.feedbackDate}
+                                    <strong>Date:</strong> {formatDate(feedback.feedbackDate)}
                                 </Typography>
                                 <Typography variant="body2" sx={{ marginBottom: '4px', color: feedback.status === 'Replied' ? 'green' : 'orange' }}>
                                     <strong>Status:</strong> {feedback.status}
