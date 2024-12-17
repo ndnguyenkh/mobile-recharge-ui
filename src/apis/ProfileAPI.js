@@ -63,11 +63,23 @@ const UPDATE_ACCOUNT_USER_API = (userName, email, phone) => {
   return axios.post(url, data);
 }
   
+/**
+ * Update Account Ringtone API
+ * @param {number} ringtoneId - The ID of the selected ringtone.
+ * @returns {Promise} A promise that resolves when the caller tune is updated successfully.
+ */
+const UPDATE_ACCOUNT_CALLER_TUNE_API = (ringtoneId) => {
+  const url = "/api/AccountRingtone";
+  const data = { ringtoneId };
+  return axios.post(url, data);
+};
+
 export {
     PROFILE_API,
     GET_NAME_API,
     GET_CALLER_TUNES_API,
     GET_ACCOUNT_API,
     CREATE_ACCOUNT_API,
-    UPDATE_ACCOUNT_USER_API
+    UPDATE_ACCOUNT_USER_API,
+    UPDATE_ACCOUNT_CALLER_TUNE_API
 };
