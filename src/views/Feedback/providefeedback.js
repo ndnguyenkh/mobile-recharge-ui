@@ -20,7 +20,7 @@ function FeedbackPage() {
             toast.info('No feedback available.');
           }
         } else {
-          toast.error('Unexpected response structure from the server.');
+          toast.info('No feedback available.');
         }
       } catch (error) {
         console.error('Error loading feedback with replies:', error.message || error.response);
