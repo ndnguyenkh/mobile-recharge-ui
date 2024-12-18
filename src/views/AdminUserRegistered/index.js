@@ -120,7 +120,7 @@ const AdminUserRegistered = () => {
 const chartSetting = {
     yAxis: [
         {
-            label: 'Total user register per day (vn₫)',
+            label: 'Total user register per day',
         },
     ],
     width: 1200,
@@ -133,7 +133,7 @@ const chartSetting = {
 };
 
 function valueFormatter(value) {
-    return `${formatCurrency(value)} `;
+    return `${value} users`;
 }
 
 export default AdminUserRegistered;

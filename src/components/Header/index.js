@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Container, Divider, Link } from "@mui/material";
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { toast } from 'react-toastify';
 
@@ -50,15 +50,15 @@ const Header = () => {
                 {/* actions */}
                 <Box>
                     <Link href="/" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Home</Link>
-                    <Link href="/provide-feedback" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Feedbacks</Link>
+                    <Link href="/provide-feedback" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Feedback</Link>
                     <Link href="/about-us" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>About Us</Link>
                     <Link href="/contact-us" underline="hover" sx={{ mx: 1, color: 'black', cursor: 'pointer', fontSize: '20px' }}>Contact Us</Link>
                 </Box>
                 {/* buttons */}
                 <Box>
-                    <Button sx={{ ":hover": { background: 'none' }, color: 'black' }}>
+                    {/* <Button sx={{ ":hover": { background: 'none' }, color: 'black' }}>
                         <SearchIcon sx={{ ":hover": { fontSize: '28px', transform: '2s' } }} />
-                    </Button>
+                    </Button> */}
                     <Button sx={{ ":hover": { background: 'none' }, color: 'black' }} onClick={handleOpenLogin}>
                         <PermIdentityIcon sx={{ ":hover": { fontSize: '28px', transform: '2s' } }} />
                     </Button>

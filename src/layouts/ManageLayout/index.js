@@ -14,7 +14,9 @@ import Sidebar from "~/components/Sidebar";
 import Footer from "~/components/Footer";
 import ToTop from "~/components/ToTop";
 
-const user_name = "loading";
+const user_name = "System administration";
+const image_admin = "https://cdn-icons-png.flaticon.com/512/5322/5322056.png";
+
 
 const ManageLayout = ({ children }) => {
 
@@ -59,7 +61,7 @@ const ManageLayout = ({ children }) => {
                 </Box>
                 <Box sx={{ ml: 2, mr: 8, width: '10%' }}>
                     <Image
-                        src={profile.image || DataImages.noImage}
+                        src={image_admin || DataImages.noImage}
                         alt="Avatar"
                         style={{ width: '200px', height: '200px', borderRadius: '50%', border: '1px solid gray' }}
                     />
@@ -75,7 +77,7 @@ const ManageLayout = ({ children }) => {
                         }}
                     />
                     {/* content here */}
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', fontStyle: 'italic' }}>"{profile.name || user_name}"</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', fontStyle: 'italic' }}>{profile.name || user_name}</Typography>
                 </Box>
             </Box>
 

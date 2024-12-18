@@ -9,14 +9,16 @@ const DataImages = {
 
     // slides
     slides: [
-        { url: "https://homepage.momocdn.net/img/momo-amazone-s3-api-241104103903-638663135431257591.jpg"}, 
+        { url: "https://homepage.momocdn.net/img/momo-amazone-s3-api-241206150858-638690945382330703.jpg"}, 
+        { url: "https://homepage.momocdn.net/img/momo-amazone-s3-api-241216173148-638699671082696124.jpg" },
+        { url: "https://png.pngtree.com/background/20240731/original/pngtree-d-render-of-pink-calculator-with-dollar-bills-and-coins-cash-picture-image_9916084.jpg" },
         { url: "https://homepage.momocdn.net/img/momo-amazone-s3-api-241004152032-638636520328188742.jpg"},
         { url: "https://homepage.momocdn.net/img/momo-amazone-s3-api-241028084141-638657017010263707.jpg"},
     ],
 
     // contact
     contact: 'https://homepage.momocdn.net/img/momo-upload-api-231123090541-638363271419643456.jpg',
-    about: 'https://rcpanel.com/assets/uploads/media-uploader/white-label-recharge-portal-71729495332.png',
+    about: 'https://static.vecteezy.com/ti/vettori-gratis/p1/10941674-uomo-salvataggio-i-soldi-illustrazione-concetto-su-bianca-sfondo-vettoriale.jpg',
 
     // collections
     // collections: [

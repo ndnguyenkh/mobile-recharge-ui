@@ -1,33 +1,33 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import EjectIcon from '@mui/icons-material/Eject';
+// import EjectIcon from '@mui/icons-material/Eject';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
 const ToTop = () => {
 
-    // State để theo dõi vị trí cuộn của trang
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        // Hàm kiểm tra vị trí cuộn khi người dùng cuộn trang
+        // show to top
         const handleScroll = () => {
         if (window.scrollY > 300) {
-            setIsVisible(true); // Hiển thị nút khi cuộn vượt quá 300px
+            setIsVisible(true); // show button when height > 300px
         } else {
-            setIsVisible(false); // Ẩn nút khi cuộn ít hơn 300px
+            setIsVisible(false);// hire button when height < 300px
         }
         };
 
-        // Lắng nghe sự kiện cuộn
+        // action
         window.addEventListener('scroll', handleScroll);
 
-        // Dọn dẹp khi component bị unmount
+        // clear component when unmount
         return () => {
         window.removeEventListener('scroll', handleScroll);
         };
     }, []);
 
-    // Hàm cuộn lên đầu trang khi nhấn nút
+    // to top
     const scrollToTop = () => {
         window.scrollTo({
         top: 0,
@@ -50,7 +50,7 @@ const ToTop = () => {
                     cursor: 'pointer'
                 }}
             >
-                <EjectIcon sx={{width: '100%', height: '100%', color: 'black'}} />
+                <NavigationIcon sx={{width: '100%', height: '100%', color: 'pink'}} />
             </Button>
         )
      );

@@ -83,14 +83,14 @@ const Contact = () => {
     return ( 
         <Box sx={{mb: 5}}>
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100px', my: 5}}>
-                <Typography variant="h4" sx={{fontWeight: 'bold', color: 'gray'}}>Contact US</Typography>
+                <Typography variant="h4" sx={{fontWeight: 'bold', color: 'gray'}}>Contact Us</Typography>
             </Box>
             <Grid container spacing={1}>
                 <Grid item md={6} xs={12}>
                     <Box>
                         <Typography variant='h4' sx={{display: 'flex', alignItems: 'center', mx: 10, fontWeight: 'bold', fontStyle: 'italic', color: '#660066'}}>
                             Send a 
-                            <Typography variant="h4" sx={{mx: 1, fontWeight: 'bold', color: '#ff66cc'}}>Message.</Typography>
+                            <Typography variant="h4" sx={{mx: 1, fontWeight: 'bold', color: '#ff66cc'}}>Message</Typography>
                         </Typography>  
                         <Box sx={{mx: 10}}>
                             <Typography variant='h6' sx={{my: 1, fontWeight: 'bold', color: 'gray'}}>Your Email</Typography>
@@ -128,7 +128,7 @@ const Contact = () => {
                                 onClick={handleSubmit}
                             >
                                 <NearMeIcon sx={{color: 'pink', mr: 1}} />
-                                Send Now.
+                                Send Now
                             </Button>
                         </Box>
                     </Box>

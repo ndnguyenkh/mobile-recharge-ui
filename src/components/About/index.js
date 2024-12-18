@@ -15,7 +15,7 @@ const About = () => {
     return ( 
         <Box sx={{mb: 5}}>
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100px', my: 5}}>
-                <Typography variant="h4" sx={{fontWeight: 'bold', color: 'gray'}}>About US</Typography>
+                <Typography variant="h4" sx={{fontWeight: 'bold', color: 'gray'}}>About Us</Typography>
             </Box>
             <Grid container spacing={1}>
                 <Grid item md={6} xs={12}>
@@ -32,8 +32,8 @@ const About = () => {
                 <Grid item md={6} xs={12}>
                     <Box>
                         <Typography variant='h4' sx={{display: 'flex', alignItems: 'center', mx: 10, fontWeight: 'bold', fontStyle: 'italic', color: '#660066'}}>
-                            Information about 
-                            <Typography variant="h4" sx={{mx: 1, fontWeight: 'bold', color: '#ff66cc'}}>US.</Typography>
+                            information about 
+                            <Typography variant="h4" sx={{mx: 1, fontWeight: 'bold', color: '#ff66cc'}}>us</Typography>
                         </Typography>  
                         <Box sx={{mt: 2, mx: 8, fontSize: '24px', color: 'gray'}}>
                             Recharge Online System is one of the most trusted systems that allows users to top up their phone balances quickly and flexibly with a variety of payment gateways. It is available across multiple platforms, including laptop, mobile, tablet, and more.

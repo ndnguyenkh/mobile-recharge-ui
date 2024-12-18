@@ -69,7 +69,7 @@ const SessionService = () => {
                                     <Link><ExtensionIcon sx={{width: '150px', height: '150px', color: 'pink', cursor: 'pointer', ":hover": {color: 'gray'}}} /></Link>
                                 </Button>
                             </Box>
-                            <Typography variant="h5" sx={{textAlign: 'center', fontWeight: 'bold', color: 'gray'}}>Mini Games</Typography>
+                            <Typography variant="h5" sx={{textAlign: 'center', fontWeight: 'bold', color: 'gray'}}>Mini Game</Typography>
                         </Box>
                     </Grid>
                 </Grid>
